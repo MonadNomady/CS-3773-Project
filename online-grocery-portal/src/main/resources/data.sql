@@ -1,0 +1,2 @@
+INSERT INTO product (name, price, category, image_url) VALUES ('Organic Bananas', 0.89, 'Produce', 'https://example.com/bananas.jpg');
+INSERT INTO product (name, price, category, image_url) VALUES ('Whole Milk Gallon', 3.49, 'Dairy', 'https://example.com/milk.jpg');
