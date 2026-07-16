@@ -35,7 +35,7 @@ This document tracks the functional requirements, system tasks, and features cat
 * [ ] Establish global layout templates, components, and stylesheets (Madison)
 
 ### Backend Functionality
-* [ ] Claim and execute **Customer** logic in `Customer.java` (TBD)
+* [ ] Claim and execute **Customer** logic in `Customer.java` (Leigh)
   * *Tasks: Registration system validation, authentication routing, address updates.*
 * [ ] Claim and execute **Shopping Cart** logic in `ShoppingCart.java` (TBD)
   * *Tasks: Cart item arithmetic, item additions, safe list deletions, cart clearing functions, context subtotal recalculations.*

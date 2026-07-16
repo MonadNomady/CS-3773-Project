@@ -24,13 +24,13 @@ This document logs individual contributions and tracks the agreed workload distr
 ## Phase 2: Code and Implement (July 1st - July 27th)
 
 | Feature / Web Page Component| Assigned To | Commit Log / Pull Request | Notes |
-| :--- | :--- | :--- | :--- |
-| Frontend UI Layouts & Wireframes | Madison |  | Main portal focus, connecting views to backend routes |
-| Initial Class Implementation | Madison |  | Baseline JPA entities mapped out from UML |
-| Backend Core: Customer | TBD |  | Implement register(), login(), and address logic in Customer.java |
-| Backend Core: Shopping Cart | Ire |  | Implement addItem(), deleteItem(), and clearCart() in ShoppingCart.java  |
-| Backend Core: Orders | TBD |  | Implement calculateTax(), applyDiscount(), placeOrder(), and displaySummary in Order.java |
-| Backend Core: Order History | TBD |  | Implement getOrders(), sortByDate(), and sortByPrice() in orderHistory.java |
+| :--- |:------------| :--- | :--- |
+| Frontend UI Layouts & Wireframes | Madison     |  | Main portal focus, connecting views to backend routes |
+| Initial Class Implementation | Madison     |  | Baseline JPA entities mapped out from UML |
+| Backend Core: Customer | Leigh         |  | Implement register(), login(), and address logic in Customer.java |
+| Backend Core: Shopping Cart | Ire         |  | Implement addItem(), deleteItem(), and clearCart() in ShoppingCart.java  |
+| Backend Core: Orders | TBD         |  | Implement calculateTax(), applyDiscount(), placeOrder(), and displaySummary in Order.java |
+| Backend Core: Order History | TBD         |  | Implement getOrders(), sortByDate(), and sortByPrice() in orderHistory.java |
 
 ---
 
