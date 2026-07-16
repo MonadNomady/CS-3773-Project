@@ -11,12 +11,15 @@ public class ShoppingCart {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int cartID;
 
+    // FIX: Using @ElementCollection with a Join Table pointing to the Product ID foreign key column
     @ElementCollection
-    @CollectionTable(name = "cart_items", joinColumns = @JoinColumn(name = "cart_id"))
+    @CollectionTable(
+            name = "cart_items",
+            joinColumns = @JoinColumn(name = "cart_id")
+    )
     @MapKeyJoinColumn(name = "product_id")
     @Column(name = "quantity")
     private Map<Product, Integer> items = new HashMap<>();
-
     private double subtotal;
 
     public Map<Product, Integer> getItems() {
