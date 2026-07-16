@@ -25,17 +25,34 @@ public class ShoppingCart {
 
     // TODO: Cart Arithmetic & Addition
     public void addItem(Product product, int quantity) {
-
+        if (product == null || quantity <= 0) {
+            return;
+        }
+        if (!product.isAvailable()) {
+            return;
+        }
+        items.merge(product, quantity, Integer::sum);
+        recalculateSubtotal();
     }
 
     // TODO: Item Removal
     public void deleteItem(Product product) {
-
+        items.remove(product);
+        recalculateSubtotal();
     }
 
     // TODO: Emptying Cart
     public void clearCart() {
+        items.clear();
+        subtotal = 0.0;
+    }
 
+    private void recalculateSubtotal() {
+        double total = 0.0;
+        for (Map.Entry<Product, Integer> entry : items.entrySet()) {
+            total += entry.getKey().getPrice() * entry.getValue();
+        }
+        subtotal = total;
     }
 
     // Getters and Setters
