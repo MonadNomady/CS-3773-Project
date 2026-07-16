@@ -3,10 +3,10 @@
 This document logs individual contributions and tracks the agreed workload distribution across the team.
 
 ## Team Roles
-* **Madison:** Repository Admin, Diagram Drafter
-* **Georgie:** Diagram Drafter
-* **Ire:** Requirements Drafter
-* **Leigh:** Requirements Drafter
+* **Madison:** Server Administrator, Frontend Developer, Lead Architect
+* **Georgie:** Systems Architect, Backend Logic Developer
+* **Ire:** Quality Assurance (QA) Engineer, Backend Logic Developer
+* **Leigh:** Quality Assurance (QA) Engineer, Backend Logic Developer
 
 ---
 
@@ -15,9 +15,9 @@ This document logs individual contributions and tracks the agreed workload distr
 | Task Description | Assigned To | Status | Notes / Links |
 | :--- | :--- | :--- | :--- |
 | Finalize Tools (Java, HTML/CSS/JS) | All | Completed | |
-| Setup GitHub Repo & Templates | Madison | In Progress | |
-| Draft User Stories & Test Cases | Ire, Leigh | In Progress | Waiting on update |
-| Design UML Diagrams | Madison, Georgie | In Progress | Waiting on User Stories |
+| Setup GitHub Repo & Templates | Madison | Completed | |
+| Draft User Stories & Test Cases | Ire, Leigh | Completed | |
+| Design UML Diagrams | Madison, Georgie | Completed | |
 
 ---
 
@@ -25,7 +25,12 @@ This document logs individual contributions and tracks the agreed workload distr
 
 | Feature / Web Page Component| Assigned To | Commit Log / Pull Request | Notes |
 | :--- | :--- | :--- | :--- |
-| | | | |
+| Frontend UI Layouts & Wireframes | Madison |  | Main portal focus, connecting views to backend routes |
+| Initial Class Implementation | Madison |  | Baseline JPA entities mapped out from UML |
+| Backend Core: Customer | TBD |  | Implement register(), login(), and address logic in Customer.java |
+| Backend Core: Shopping Cart | TBD |  | Implement addItem(), deleteItem(), and clearCart() in ShoppingCart.java  |
+| Backend Core: Orders | TBD |  | Implement calculateTax(), applyDiscount(), placeOrder(), and displaySummary in Order.java |
+| Backend Core: Order History | TBD |  | Implement getOrders(), sortByDate(), and sortByPrice() in orderHistory.java |
 
 ---
 
@@ -35,7 +40,7 @@ This document logs individual contributions and tracks the agreed workload distr
 
 | Presentation Topic / Slide Section | Assigned Presenter |
 | :--- | :--- |
-| Project Overview & Requirements | |
-| Architecture & UML Design | |
-| Live Web App Demo | |
-| Conclusion & Lessons Learned | |
+| Project Overview & Requirements | Ire, Leigh |
+| Architecture & UML Design | Georgie |
+| Live Web App Demo | Madison |
+| Conclusion & Lessons Learned | All team members |
