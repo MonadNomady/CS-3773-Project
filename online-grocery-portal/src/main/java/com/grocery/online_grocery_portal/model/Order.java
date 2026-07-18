@@ -21,22 +21,39 @@ public class Order {
 
     // TODO: Handle 8.25% Sales Tax Equation
     public double calculateTax(double rate) {
-        return 0.0;
+        taxAmount = (totalAmount * rate);
+        totalAmount += taxAmount;
+        return totalAmount;
     }
 
     // TODO: Promo/Coupon Logic
     public void applyDiscount(String code) {
-
+        discountCode = code;
     }
 
     // TODO: Order Fulfillment Lifecycle
     public boolean placeOrder() {
-        return false;
+        if (totalAmount <= 0) {
+            return false;
+        }
+
+        if (deliveryType == null || deliveryType.isEmpty()) {
+            return false;
+        }
+
+        orderDate = new Date();
+
+        return true;
     }
 
     // TODO: Console/Log Print Layouts
     public void displaySummary() {
-
+        System.out.println("Order ID: " + orderID);
+        System.out.println("Subtotal: $" + totalAmount);
+        System.out.println("Tax: $" + taxAmount);
+        System.out.println("Discount Code: " + discountCode);
+        System.out.println("DeliveryType: " + deliveryType);
+        System.out.println("Order Date: " + orderDate);
     }
 
     // Getters and Setters

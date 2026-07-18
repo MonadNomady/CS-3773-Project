@@ -27,10 +27,10 @@ This document logs individual contributions and tracks the agreed workload distr
 | :--- |:------------| :--- | :--- |
 | Frontend UI Layouts & Wireframes | Madison     |  | Main portal focus, connecting views to backend routes |
 | Initial Class Implementation | Madison     |  | Baseline JPA entities mapped out from UML |
-| Backend Core: Customer | Leigh         |  | Implement register(), login(), and address logic in Customer.java |
+| Backend Core: Customer | Leigh       |  | Implement register(), login(), and address logic in Customer.java |
 | Backend Core: Shopping Cart | Ire         |  | Implement addItem(), deleteItem(), and clearCart() in ShoppingCart.java  |
-| Backend Core: Orders | TBD         |  | Implement calculateTax(), applyDiscount(), placeOrder(), and displaySummary in Order.java |
-| Backend Core: Order History | TBD         |  | Implement getOrders(), sortByDate(), and sortByPrice() in orderHistory.java |
+| Backend Core: Orders | Georgie     |  | Implement calculateTax(), applyDiscount(), placeOrder(), and displaySummary in Order.java |
+| Backend Core: Order History | Georgie     |  | Implement getOrders(), sortByDate(), and sortByPrice() in orderHistory.java |
 
 ---
 
