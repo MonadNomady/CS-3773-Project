@@ -24,12 +24,49 @@ public class Customer {
 
     // TODO: Registration Logic
     public boolean register() {
-        return false;
+
+        if (name == null || name.trim().isEmpty()) {
+            return false;
+        }
+
+        if (email == null || email.trim().isEmpty()) {
+            return false;
+        }
+
+        if (!email.contains("@") || !email.contains(".")) {
+            return false;
+        }
+
+        if (password == null || password.trim().isEmpty()) {
+            return false;
+        }
+
+        if (deliveryAddress == null || deliveryAddress.trim().isEmpty()) {
+            return false;
+        }
+
+        if (shoppingCart == null) {
+            shoppingCart = new ShoppingCart();
+        }
+
+        if (orderHistory == null) {
+            orderHistory = new OrderHistory();
+        }
+
+        return true;
     }
 
     // TODO: Login / Auth Logic
     public boolean login() {
-        return false;
+        if (email == null || email.trim().isEmpty()) {
+            return false;
+        }
+
+        if (password == null || password.trim().isEmpty()) {
+            return false;
+        }
+
+        return true;
     }
 
     // TODO: Address Management
