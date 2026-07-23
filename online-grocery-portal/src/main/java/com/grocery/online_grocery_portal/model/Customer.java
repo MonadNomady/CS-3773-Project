@@ -1,6 +1,8 @@
 package com.grocery.online_grocery_portal.model;
 
 import jakarta.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Customer {
@@ -12,7 +14,14 @@ public class Customer {
     private String name;
     private String email;
     private String password;
-    private String deliveryAddress;
+
+    @ElementCollection
+    @CollectionTable(
+            name = "customer_addresses",
+            joinColumns = @JoinColumn(name = "customer_id")
+    )
+    @Column(name = "address")
+    private List<String> deliveryAddresses = new ArrayList<>();
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "cart_id")
@@ -41,7 +50,7 @@ public class Customer {
             return false;
         }
 
-        if (deliveryAddress == null || deliveryAddress.trim().isEmpty()) {
+        if (deliveryAddresses == null || deliveryAddresses.isEmpty()) {
             return false;
         }
 
@@ -71,7 +80,21 @@ public class Customer {
 
     // TODO: Address Management
     public void addAddress(String address) {
-        this.deliveryAddress = address;
+        if (address != null && !address.trim().isEmpty()) {
+            String cleanedAddress = address.trim();
+
+            if (!deliveryAddresses.contains(cleanedAddress)) {
+                deliveryAddresses.add(cleanedAddress);
+            }
+        }
+    }
+
+    public boolean removeAddress(String address) {
+        if (address == null) {
+            return false;
+        }
+
+        return deliveryAddresses.remove(address.trim());
     }
 
     // Getters and Setters
@@ -87,8 +110,15 @@ public class Customer {
     public String getPassword() { return password; }
     public void setPassword(String password) { this.password = password; }
 
-    public String getDeliveryAddress() { return deliveryAddress; }
-    public void setDeliveryAddress(String deliveryAddress) { this.deliveryAddress = deliveryAddress; }
+    public List<String> getDeliveryAddresses() { return deliveryAddresses; }
+
+    public void setDeliveryAddresses(List<String> deliveryAddresses) {
+        if (deliveryAddresses == null) {
+            this.deliveryAddresses = new ArrayList<>();
+        } else {
+            this.deliveryAddresses = deliveryAddresses;
+        }
+    }
 
     public ShoppingCart getShoppingCart() { return shoppingCart; }
     public void setShoppingCart(ShoppingCart shoppingCart) { this.shoppingCart = shoppingCart; }
