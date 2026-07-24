@@ -29,6 +29,21 @@ public class Order {
     // TODO: Promo/Coupon Logic
     public void applyDiscount(String code) {
         discountCode = code;
+
+        switch (code) {
+            case "SAVE10":
+                totalAmount *= 0.90;
+                break;
+            case "SAVE20":
+                totalAmount *= 0.80;
+                break;
+            case "5OFF":
+                totalAmount -= 5.00;
+                break;
+            case "10OFF":
+                totalAmount -= 10.00;
+                break;
+        }
     }
 
     // TODO: Order Fulfillment Lifecycle
