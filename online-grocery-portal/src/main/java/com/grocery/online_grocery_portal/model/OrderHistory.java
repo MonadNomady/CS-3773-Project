@@ -1,20 +1,27 @@
 package com.grocery.online_grocery_portal.model;
 
-import jakarta.persistence.*;
+//import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
-@Entity
+/*
+ * NOTE: Preserved to show our original UML design.
+ * Database sorting was migrated to OrderRepository.java
+ * to leverage SQL execution in Spring Data JPA.
+ */
+
 public class OrderHistory {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    //@Id
+    //@GeneratedValue(strategy = GenerationType.IDENTITY)
     private int historyID;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "history_id")
+    //@OneToMany(cascade = CascadeType.ALL)
+    //@JoinColumn(name = "history_id")
     private List<Order> pastOrders = new ArrayList<>();
+
+    public OrderHistory() {}
 
     // TODO: Fetching Orders
     public List<Order> getOrders(int customerID) {

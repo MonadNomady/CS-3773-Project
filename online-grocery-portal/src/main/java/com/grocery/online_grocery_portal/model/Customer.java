@@ -1,21 +1,28 @@
 package com.grocery.online_grocery_portal.model;
 
 import jakarta.persistence.*;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Table(name = "customer")
 public class Customer {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int customerID;
 
+    @Column(nullable = false)
     private String name;
+
+    @Column(unique = true, nullable = false)
     private String email;
+
+    @Column(nullable = false)
     private String password;
 
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.LAZY)
     @CollectionTable(
             name = "customer_addresses",
             joinColumns = @JoinColumn(name = "customer_id")
@@ -23,15 +30,30 @@ public class Customer {
     @Column(name = "address")
     private List<String> deliveryAddresses = new ArrayList<>();
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "cart_id")
+    @OneToOne(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
     private ShoppingCart shoppingCart;
 
+    /*
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "history_id")
     private OrderHistory orderHistory;
+    */
 
-    // TODO: Registration Logic
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
+    @JsonIgnore
+    private List<Order> orders = new ArrayList<>();
+
+
+    public Customer() {}
+
+    /*
+     *  The following commented methods reflect our original UML design,
+     *  during backend integration logic was migrated to `AuthService.java`
+     *  to follow Spring Data JPA. Code was kept for design evolution.
+     */
+
+    /*
+    // Registration Logic
     public boolean register() {
 
         if (name == null || name.trim().isEmpty()) {
@@ -65,7 +87,7 @@ public class Customer {
         return true;
     }
 
-    // TODO: Login / Auth Logic
+    // Login / Auth Logic
     public boolean login() {
         if (email == null || email.trim().isEmpty()) {
             return false;
@@ -77,8 +99,9 @@ public class Customer {
 
         return true;
     }
+    */
 
-    // TODO: Address Management
+    // Address Management
     public void addAddress(String address) {
         if (address != null && !address.trim().isEmpty()) {
             String cleanedAddress = address.trim();
@@ -111,18 +134,21 @@ public class Customer {
     public void setPassword(String password) { this.password = password; }
 
     public List<String> getDeliveryAddresses() { return deliveryAddresses; }
-
     public void setDeliveryAddresses(List<String> deliveryAddresses) {
-        if (deliveryAddresses == null) {
-            this.deliveryAddresses = new ArrayList<>();
-        } else {
-            this.deliveryAddresses = deliveryAddresses;
-        }
+        this.deliveryAddresses = (deliveryAddresses != null) ? deliveryAddresses : new ArrayList<>();
     }
 
     public ShoppingCart getShoppingCart() { return shoppingCart; }
-    public void setShoppingCart(ShoppingCart shoppingCart) { this.shoppingCart = shoppingCart; }
+    public void setShoppingCart(ShoppingCart shoppingCart) {
+        this.shoppingCart = shoppingCart;
+        if (shoppingCart != null) {
+            shoppingCart.setCustomer(this);
+        }
+    }
 
-    public OrderHistory getOrderHistory() { return orderHistory; }
-    public void setOrderHistory(OrderHistory orderHistory) { this.orderHistory = orderHistory; }
+    public List<Order> getOrders() { return orders; }
+    public void setOrders(List<Order> orders) { this.orders = orders; }
+
+    //public OrderHistory getOrderHistory() { return orderHistory; }
+    //public void setOrderHistory(OrderHistory orderHistory) { this.orderHistory = orderHistory; }
 }

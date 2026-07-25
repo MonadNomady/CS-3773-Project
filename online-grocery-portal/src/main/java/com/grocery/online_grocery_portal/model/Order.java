@@ -1,7 +1,8 @@
 package com.grocery.online_grocery_portal.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "customer_order")
@@ -11,22 +12,33 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int orderID;
 
+    @ManyToOne
+    @JoinColumn(name = "customer_id")
+    @JsonIgnore
+    private Customer customer;
+
     private double totalAmount;
     private double taxAmount;
     private String discountCode;
     private String deliveryType;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date orderDate;
+    private LocalDateTime orderDate;
 
-    // TODO: Handle 8.25% Sales Tax Equation
+    public Order() {}
+
+    @PrePersist
+    protected void onCreate() {
+        this.orderDate = LocalDateTime.now();
+    }
+
+    // Handle 8.25% Sales Tax Equation
     public double calculateTax(double rate) {
         taxAmount = (totalAmount * rate);
         totalAmount += taxAmount;
         return totalAmount;
     }
 
-    // TODO: Promo/Coupon Logic
+    // Promo/Coupon Logic
     public void applyDiscount(String code) {
         discountCode = code;
 
@@ -46,34 +58,40 @@ public class Order {
         }
     }
 
-    // TODO: Order Fulfillment Lifecycle
+    // Order Fulfillment Lifecycle
     public boolean placeOrder() {
-        if (totalAmount <= 0) {
+        if (this.totalAmount <= 0) {
             return false;
         }
 
-        if (deliveryType == null || deliveryType.isEmpty()) {
+        if (this.deliveryType == null || this.deliveryType.isEmpty()) {
             return false;
         }
-
-        orderDate = new Date();
 
         return true;
     }
 
-    // TODO: Console/Log Print Layouts
+    // Console/Log Print Layouts
     public void displaySummary() {
-        System.out.println("Order ID: " + orderID);
-        System.out.println("Subtotal: $" + totalAmount);
-        System.out.println("Tax: $" + taxAmount);
-        System.out.println("Discount Code: " + discountCode);
-        System.out.println("DeliveryType: " + deliveryType);
-        System.out.println("Order Date: " + orderDate);
+        System.out.println("=== ORDER SUMMARY ===");
+        System.out.println("Order ID: " + this.orderID);
+        System.out.println("Subtotal: $" + String.format("%.2f", this.totalAmount));
+        System.out.println("Tax: $" + String.format("%.2f", this.taxAmount));
+        System.out.println("Discount Code: " + this.discountCode);
+        System.out.println("DeliveryType: " + this.deliveryType);
+        System.out.println("Order Date: " + this.orderDate);
     }
 
     // Getters and Setters
     public int getOrderID() { return orderID; }
     public void setOrderID(int orderID) { this.orderID = orderID; }
+
+    public Customer getCustomer() { return customer; }
+    public void setCustomer(Customer customer) { this.customer = customer; }
+
+    public int getCustomerId() {
+        return customer != null ? customer.getCustomerID() : 0;
+    }
 
     public double getTotalAmount() { return totalAmount; }
     public void setTotalAmount(double totalAmount) { this.totalAmount = totalAmount; }
@@ -87,6 +105,7 @@ public class Order {
     public String getDeliveryType() { return deliveryType; }
     public void setDeliveryType(String deliveryType) { this.deliveryType = deliveryType; }
 
-    public Date getOrderDate() { return orderDate; }
-    public void setOrderDate(Date orderDate) { this.orderDate = orderDate; }
+    public LocalDateTime getOrderDate() { return orderDate; }
+    public void setOrderDate(LocalDateTime orderDate) { this.orderDate = orderDate; }
+
 }

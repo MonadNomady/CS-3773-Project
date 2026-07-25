@@ -1,22 +1,31 @@
 package com.grocery.online_grocery_portal.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
+@Table(name = "product")
 public class Product {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "product_id")
     private int productID;
 
+    @Column(nullable = false)
     private String name;
+
+    @Column(columnDefinition = "TEXT")
     private String description;
+
     private double price;
+
+    @Column(name = "picture_url")
     private String pictureUrl;
-    private boolean isAvailable;
+
+    @Column(name = "is_available")
+    private boolean available;
+
+    public Product() {}
 
     // Getters and Setters
     public int getProductID() { return productID; }
@@ -34,6 +43,6 @@ public class Product {
     public String getPictureUrl() { return pictureUrl; }
     public void setPictureUrl(String pictureUrl) { this.pictureUrl = pictureUrl; }
 
-    public boolean isAvailable() { return isAvailable; }
-    public void setAvailable(boolean isAvailable) { this.isAvailable = isAvailable; }
+    public boolean isAvailable() { return available; }
+    public void setAvailable(boolean available) { this.available = available; }
 }

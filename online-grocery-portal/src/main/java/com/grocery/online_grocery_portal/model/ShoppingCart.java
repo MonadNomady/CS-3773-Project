@@ -1,67 +1,94 @@
 package com.grocery.online_grocery_portal.model;
 
 import jakarta.persistence.*;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
+@Table(name = "shopping_cart")
 public class ShoppingCart {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int cartID;
 
-    // FIX: Using @ElementCollection with a Join Table pointing to the Product ID foreign key column
-    @ElementCollection
-    @CollectionTable(
-            name = "cart_items",
-            joinColumns = @JoinColumn(name = "cart_id")
-    )
-    @MapKeyJoinColumn(name = "product_id")
-    @Column(name = "quantity")
-    private Map<Product, Integer> items = new HashMap<>();
-    private double subtotal;
+    @OneToOne
+    @JoinColumn(name = "customer_id", unique = true)
+    private Customer customer;
 
-    public Map<Product, Integer> getItems() {
-        return items;
-    }
+    @OneToMany(mappedBy = "shoppingCart", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<CartItem> items = new ArrayList<>();
+
+    //private double subtotal;
+
+    public ShoppingCart() {}
 
     // TODO: Cart Arithmetic & Addition
     public void addItem(Product product, int quantity) {
-        if (product == null || quantity <= 0) {
+        if (product == null || quantity <= 0 || !product.isAvailable()) {
             return;
         }
-        if (!product.isAvailable()) {
-            return;
+
+        for (CartItem item : items) {
+            if (item.getProduct() != null && item.getProduct().getProductID() == product.getProductID()) {
+                item.setQuantity(item.getQuantity() + quantity);
+                return;
+            }
         }
-        items.merge(product, quantity, Integer::sum);
-        recalculateSubtotal();
+
+        CartItem newItem = new CartItem(product, quantity);
+        newItem.setShoppingCart(this);
+        items.add(newItem);
     }
 
     // TODO: Item Removal
+    public void deleteItem(int productId) {
+        if (this.items == null || this.items.isEmpty()) {
+            return;
+        }
+
+        this.items.removeIf(item ->
+                item != null &&
+                        item.getProduct() != null &&
+                        item.getProduct().getProductID() == productId
+        );
+    }
+
     public void deleteItem(Product product) {
-        items.remove(product);
-        recalculateSubtotal();
+        if (product == null) return;
+        deleteItem(product.getProductID());
     }
 
     // TODO: Emptying Cart
     public void clearCart() {
-        items.clear();
-        subtotal = 0.0;
+        if (this.items != null) {
+            this.items.clear();
+        }
     }
 
-    private void recalculateSubtotal() {
+    /*private void recalculateSubtotal() {
         double total = 0.0;
-        for (Map.Entry<Product, Integer> entry : items.entrySet()) {
-            total += entry.getKey().getPrice() * entry.getValue();
+        for (CartItem item : items) {
+            total += item.getProduct().getPrice() * item.getQuantity();
         }
         subtotal = total;
+    }*/
+
+    public double getSubtotal() {
+        if (this.items == null || this.items.isEmpty()) {
+            return 0.0;
+        }
+
+        return this.items.stream()
+                .filter(item -> item != null && item.getProduct() != null)
+                .mapToDouble(item -> item.getProduct().getPrice() * item.getQuantity())
+                .sum();
     }
 
     // Getters and Setters
     public int getCartID() { return cartID; }
     public void setCartID(int cartID) { this.cartID = cartID; }
-
-    public double getSubtotal() { return subtotal; }
-    public void setSubtotal(double subtotal) { this.subtotal = subtotal; }
+    public Customer getCustomer() { return customer; }
+    public void setCustomer(Customer customer) { this.customer = customer; }
+    public List<CartItem> getItems() { return items; }
 }
