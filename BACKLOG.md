@@ -26,6 +26,16 @@ This document tracks the functional requirements, system tasks, and features cat
 * [x] Create `data.sql` script to add sample grocery items to the database
 * [x] Verify local IDE connects successfully to the cloud database
 
+### Backend Functionality
+* [x] Claim and execute **Customer** logic in `Customer.java` (Leigh)
+  * *Tasks: Registration system validation, authentication routing, address updates.*
+* [x] Claim and execute **Shopping Cart** logic in `ShoppingCart.java` (Ire)
+  * *Tasks: Cart item arithmetic, item additions, safe list deletions, cart clearing functions, context subtotal recalculations.*
+* [x] Claim and execute **Order** logic in `Order.java` (Georgie)
+  * *Tasks: Apply localized 8.25% sales tax calculation, promotional discount string validations, state transitions, logging console summaries.*
+* [x] Claim and execute **Order History** logic in `OrderHistory.java` (Georgie)
+  * *Tasks: Multi-parameter lists retrievals, date-based comparisons, cost-based ascending/descending sorting methods.*
+
 ---
 
 ## In Progress
@@ -33,16 +43,6 @@ This document tracks the functional requirements, system tasks, and features cat
 ### Frontend Core
 * [ ] Draft initial client portal UI layouts and wireframes (Madison)
 * [ ] Establish global layout templates, components, and stylesheets (Madison)
-
-### Backend Functionality
-* [ ] Claim and execute **Customer** logic in `Customer.java` (Leigh)
-  * *Tasks: Registration system validation, authentication routing, address updates.*
-* [ ] Claim and execute **Shopping Cart** logic in `ShoppingCart.java` (TBD)
-  * *Tasks: Cart item arithmetic, item additions, safe list deletions, cart clearing functions, context subtotal recalculations.*
-* [ ] Claim and execute **Order** logic in `Order.java` (TBD)
-  * *Tasks: Apply localized 8.25% sales tax calculation, promotional discount string validations, state transitions, logging console summaries.*
-* [ ] Claim and execute **Order History** logic in `OrderHistory.java` (TBD)
-  * *Tasks: Multi-parameter lists retrievals, date-based comparisons, cost-based ascending/descending sorting methods.*
 
 ---
 
