@@ -45,25 +45,48 @@ public class GroceryApiController {
     // ==========================================
 
     @GetMapping("/products")
-    public List<Product> getAllProducts() {
-        return productRepository.findByAvailableTrue();
+    public List<Product> getAllProducts(@RequestParam(value = "availableOnly", defaultValue = "false") boolean availableOnly) {
+        if (availableOnly) {
+            return productRepository.findByAvailableTrue();
+        }
+        return productRepository.findAll();
     }
 
     @GetMapping("/products/search")
-    public List<Product> searchProducts(@RequestParam("query") String query) {
-        return productRepository.findByAvailableTrueAndNameContainingIgnoreCaseOrAvailableTrueAndDescriptionContainingIgnoreCase(query, query);
+    public List<Product> searchProducts(
+            @RequestParam("query") String query,
+            @RequestParam(value = "availableOnly", defaultValue = "false") boolean availableOnly) {
+
+        if (availableOnly) {
+            return productRepository.findByAvailableTrueAndNameContainingIgnoreCaseOrAvailableTrueAndDescriptionContainingIgnoreCase(query, query);
+        }
+        return productRepository.findByNameContainingIgnoreCaseOrDescriptionContainingIgnoreCase(query, query);
     }
 
     @GetMapping("/products/sort")
-    public List<Product> getProductsSorted(@RequestParam("sortBy") String sortBy) {
+    public List<Product> getProductsSorted(
+            @RequestParam("sortBy") String sortBy,
+            @RequestParam(value = "availableOnly", defaultValue = "false") boolean availableOnly) {
+
+        if (availableOnly) {
+            if ("priceAsc".equalsIgnoreCase(sortBy)) {
+                return productRepository.findByAvailableTrue(Sort.by(Sort.Direction.ASC, "price"));
+            } else if ("priceDesc".equalsIgnoreCase(sortBy)) {
+                return productRepository.findByAvailableTrue(Sort.by(Sort.Direction.DESC, "price"));
+            } else if ("availability".equalsIgnoreCase(sortBy)) {
+                return productRepository.findByAvailableTrue(Sort.by(Sort.Direction.DESC, "available"));
+            }
+            return productRepository.findByAvailableTrue();
+        }
+
         if ("priceAsc".equalsIgnoreCase(sortBy)) {
-            return productRepository.findByAvailableTrue(Sort.by(Sort.Direction.ASC, "price"));
+            return productRepository.findAll(Sort.by(Sort.Direction.ASC, "price"));
         } else if ("priceDesc".equalsIgnoreCase(sortBy)) {
-            return productRepository.findByAvailableTrue(Sort.by(Sort.Direction.DESC, "price"));
+            return productRepository.findAll(Sort.by(Sort.Direction.DESC, "price"));
         } else if ("availability".equalsIgnoreCase(sortBy)) {
             return productRepository.findAll(Sort.by(Sort.Direction.DESC, "available"));
         }
-        return productRepository.findByAvailableTrue();
+        return productRepository.findAll();
     }
 
     // ==========================================
@@ -206,6 +229,38 @@ public class GroceryApiController {
         } catch (IllegalArgumentException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of("error", e.getMessage()));
         }
+    }
+
+    @PostMapping("/cart/calculate")
+    public ResponseEntity<?> calculateTotals(@RequestBody Map<String, Object> request) {
+        double subtotal = Double.parseDouble(request.getOrDefault("subtotal", "0.0").toString());
+        String promoCode = (String) request.get("promoCode");
+        String deliveryType = (String) request.getOrDefault("deliveryType", "STANDARD_DELIVERY");
+
+        Order orderCalculator = new Order();
+        orderCalculator.setTotalAmount(subtotal);
+
+        // Apply promo discount
+        if (promoCode != null && !promoCode.trim().isEmpty()) {
+            orderCalculator.applyDiscount(promoCode.trim().toUpperCase());
+        }
+
+        double discountedSubtotal = orderCalculator.getTotalAmount();
+
+        // Calculate tax
+        orderCalculator.calculateTax(0.0825);
+
+        double taxAmount = orderCalculator.getTaxAmount();
+        double deliveryFee = "EXPRESS".equalsIgnoreCase(deliveryType) ? 5.99 : 2.99;
+        double grandTotal = orderCalculator.getTotalAmount() + deliveryFee;
+
+        return ResponseEntity.ok(Map.of(
+                "subtotal", subtotal,
+                "discountedSubtotal", discountedSubtotal,
+                "tax", taxAmount,
+                "deliveryFee", deliveryFee,
+                "total", grandTotal
+        ));
     }
 
     @PostMapping("/checkout/{customerId}")

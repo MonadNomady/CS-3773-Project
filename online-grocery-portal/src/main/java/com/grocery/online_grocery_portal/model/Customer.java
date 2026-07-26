@@ -31,6 +31,7 @@ public class Customer {
     private List<String> deliveryAddresses = new ArrayList<>();
 
     @OneToOne(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
     private ShoppingCart shoppingCart;
 
     /*

@@ -8,11 +8,19 @@ import java.util.List;
 
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Integer> {
+    // Fetch ALL products (available and unavailable)
+    List<Product> findAll();
+
     // Get all available products
     List<Product> findByAvailableTrue();
 
     // Search by name or description
     List<Product> findByAvailableTrueAndNameContainingIgnoreCaseOrAvailableTrueAndDescriptionContainingIgnoreCase(String name, String description);
+
+    List<Product> findByNameContainingIgnoreCaseOrDescriptionContainingIgnoreCase(String name, String description);
+
+    // Fetch ALL products with custom sorting
+    List<Product> findAll(Sort sort);
 
     // Fetch products with custom sorting
     List<Product> findByAvailableTrue(Sort sort);
