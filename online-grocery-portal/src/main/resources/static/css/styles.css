@@ -1,0 +1,89 @@
+/* RowdyPantry Main Stylesheet */
+
+:root {
+    --primary-blue: #0d6efd;
+    --primary-blue-hover: #0b5ed7;
+    --light-blue-bg: #e7f1ff;
+    --dark-text: #212529;
+    --muted-text: #6c757d;
+    --border-color: #dee2e6;
+}
+
+/* Global / Body Reset */
+body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    color: var(--dark-text);
+    background-color: #f8f9fa;
+}
+
+/* Primary Buttons Override */
+.btn-primary {
+    background-color: var(--primary-blue) !important;
+    border-color: var(--primary-blue) !important;
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-blue-hover) !important;
+    border-color: var(--primary-blue-hover) !important;
+}
+
+.btn-outline-primary {
+    color: var(--primary-blue) !important;
+    border-color: var(--primary-blue) !important;
+}
+
+.btn-outline-primary:hover {
+    background-color: var(--primary-blue) !important;
+    color: #fff !important;
+}
+
+/* Navbar / Header Overrides */
+.navbar-brand {
+    color: #ffffff !important;
+    font-weight: 700;
+    font-size: 1.4rem;
+}
+
+.badge-blue {
+    background-color: var(--primary-blue);
+    color: #fff;
+}
+
+
+/* Cart & Summary Box Styling */
+.card-summary {
+    background-color: #ffffff;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.summary-header {
+    border-bottom: 2px solid var(--primary-blue);
+    padding-bottom: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+/* Total Price Highlight */
+.grand-total-text {
+    color: var(--primary-blue);
+    font-size: 1.4rem;
+    font-weight: 700;
+}
+
+.product-price {
+    color: var(--primary-blue) !important;
+    font-weight: 700;
+}
+
+/* Centered Empty State for Search & Cart */
+.no-items-found,
+.cart-empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 3rem 1rem;
+    width: 100%;
+}

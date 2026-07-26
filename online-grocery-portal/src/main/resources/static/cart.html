@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RowdyPantry - Your Cart</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="bg-light">
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top">
+    <div class="container">
+        <a class="navbar-brand fw-bold text-white fs-4" href="index.html">RowdyPantry</a>
+        <div class="d-flex align-items-center gap-3">
+            <a href="cart.html" class="btn btn-light position-relative fw-semibold">
+                Cart
+                <span id="cart-badge" class="badge bg-danger rounded-pill">0</span>
+            </a>
+            <!-- Dynamic Auth Container -->
+            <div id="navbar-auth-container"></div>
+        </div>
+    </div>
+</nav>
+
+<!-- Main Container -->
+<main class="container my-5">
+    <h2 class="fw-bold mb-4 text-primary">Shopping Cart</h2>
+
+    <div id="checkout-alert" class="alert d-none" role="alert"></div>
+
+    <div class="row g-4">
+        <!-- Cart Items List -->
+        <div class="col-lg-8">
+            <div class="card card-summary">
+                <div class="card-body p-4">
+                    <div id="cart-items-container">
+                        <!-- Dynamic Cart Items Render Here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Order Summary & Checkout -->
+        <div class="col-lg-4">
+            <div class="card card-summary">
+                <div class="card-body p-4">
+                    <h4 class="fw-bold mb-3 summary-header text-primary">Order Summary</h4>
+                    <div class="d-flex justify-content-between mb-2">
+                        <span>Subtotal</span>
+                        <span id="summary-subtotal" class="fw-semibold">$0.00</span>
+                    </div>
+                    <div class="d-flex justify-content-between mb-2">
+                        <span>Estimated Tax (8.25%)</span>
+                        <span id="summary-tax" class="fw-semibold">$0.00</span>
+                    </div>
+                    <div class="d-flex justify-content-between mb-3">
+                        <span>Delivery Fee</span>
+                        <span id="summary-delivery" class="fw-semibold">$2.99</span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="delivery-type" class="form-label fw-semibold">Delivery Type</label>
+                        <select class="form-select" id="delivery-type">
+                            <option value="STANDARD_DELIVERY" selected>Standard Delivery ($2.99)</option>
+                            <option value="EXPRESS_DELIVERY">Express Delivery ($5.99)</option>
+                            <option value="PICKUP">Campus Pickup ($0.00)</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="promo-code" class="form-label fw-semibold">Promo Code</label>
+                        <input type="text" class="form-control" id="promo-code" placeholder="e.g. ROWDY10">
+                    </div>
+
+                    <hr>
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <span class="fs-5 fw-bold">Total</span>
+                        <span id="summary-total" class="grand-total-text">$0.00</span>
+                    </div>
+
+                    <button id="checkout-btn" class="btn btn-primary w-100 btn-lg fw-bold">Place Order</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<script src="js/auth.js"></script>
+<script src="js/cart.js"></script>
+</body>
+</html>
