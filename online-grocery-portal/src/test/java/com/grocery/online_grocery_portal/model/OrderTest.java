@@ -16,7 +16,7 @@ public class OrderTest {
     }
 
     @Test
-    public void calculateTax() {
+    void calculateTax_ShouldAdd825PercentTax() {
         //given: subtotal = $100
         order.setTotalAmount(100.00);
 
@@ -28,7 +28,7 @@ public class OrderTest {
     }
 
     @Test
-    public void applyDiscount() {
+    void applyDiscount_WithSave10_ShouldReduceTotal() {
         //given: subtotal = $100
         order.setTotalAmount(100.00);
 
@@ -40,7 +40,7 @@ public class OrderTest {
     }
 
     @Test
-    public void placeOrder() {
+    void placeOrder_WithValidOrder_ShouldReturnTrue() {
         //given: subtotal = $100
         order.setTotalAmount(100.00);
         order.setDeliveryType("Delivery");
@@ -50,5 +50,42 @@ public class OrderTest {
 
         //then
         assertTrue(result);
+    }
+
+    @Test
+    void applyDiscount_WithInvalidCode_ShouldKeepOriginalTotal() {
+        // Given: An order subtotal of $100.00
+        order.setTotalAmount(100.00);
+
+        // When: An invalid discount code is applied
+        order.applyDiscount("INVALID");
+
+        // Then: The total should remain unchanged
+        assertEquals(100.00, order.getTotalAmount(), 0.001);
+    }
+
+    @Test
+    void placeOrder_WithoutDeliveryType_ShouldReturnFalse() {
+        // Given: An order with a total but no delivery type
+        order.setTotalAmount(100.00);
+
+        // When: The order is placed
+        boolean result = order.placeOrder();
+
+        // Then: The order should not be placed
+        assertFalse(result);
+    }
+
+    @Test
+    void placeOrder_WithZeroTotal_ShouldReturnFalse() {
+        // Given: An order with no purchase amount
+        order.setTotalAmount(0.00);
+        order.setDeliveryType("Delivery");
+
+        // When: The order is placed
+        boolean result = order.placeOrder();
+
+        // Then: The order should not be placed
+        assertFalse(result);
     }
 }

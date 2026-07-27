@@ -16,7 +16,7 @@ public class ShoppingCartTest {
     }
 
     @Test
-    public void addItem() {
+    void addItem() {
         //given: new product
         product.setProductID(1);
         product.setAvailable(true);
@@ -29,7 +29,7 @@ public class ShoppingCartTest {
     }
 
     @Test
-    public void deleteItem() {
+    void deleteItem_ShouldRemoveProductFromCart() {
         //given: new product
         product.setProductID(1);
         product.setAvailable(true);
@@ -43,16 +43,59 @@ public class ShoppingCartTest {
     }
 
     @Test
-    public void clearCart() {
-        //given: products added to cart
-        product.setProductID(1);
-        product.setAvailable(true);
-        cart.addItem(product, 1);
+    void clearCart_WithMultipleProducts_ShouldRemoveAllProducts() {
+        // Given: Multiple products in the cart
+        Product secondProduct = new Product();
+        secondProduct.setProductID(2);
+        secondProduct.setAvailable(true);
 
-        //when: clear cart
+        cart.addItem(product, 1);
+        cart.addItem(secondProduct, 2);
+
+        // When: The cart is cleared
         cart.clearCart();
 
-        //then
+        // Then: No products should remain
         assertTrue(cart.getItems().isEmpty());
+        assertEquals(0, cart.getItems().size());
+    }
+
+    @Test
+    void addItem_WithUnavailableProduct_ShouldNotAddProduct() {
+        // Given: An unavailable product
+        product.setAvailable(false);
+
+        // When: The product is added to the cart
+        cart.addItem(product, 1);
+
+        // Then: The shopping cart should remain empty
+        assertTrue(cart.getItems().isEmpty());
+    }
+
+    @Test
+    void addItem_WithZeroQuantity_ShouldNotAddProduct() {
+        // Given: An available product with a quantity of zero
+        int quantity = 0;
+
+        // When: The product is added to the cart
+        cart.addItem(product, quantity);
+
+        // Then: The shopping cart should remain empty
+        assertTrue(cart.getItems().isEmpty());
+    }
+
+    @Test
+    void addItem_WithMultipleProducts_ShouldStoreBothProducts() {
+        // Given: Two available products
+        Product secondProduct = new Product();
+        secondProduct.setProductID(2);
+        secondProduct.setAvailable(true);
+
+        // When: Both products are added
+        cart.addItem(product, 1);
+        cart.addItem(secondProduct, 2);
+
+        // Then: The cart should contain two items
+        assertEquals(2, cart.getItems().size());
     }
 }
