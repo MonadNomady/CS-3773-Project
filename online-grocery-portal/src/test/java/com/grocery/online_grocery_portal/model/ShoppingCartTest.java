@@ -98,4 +98,38 @@ public class ShoppingCartTest {
         // Then: The cart should contain two items
         assertEquals(2, cart.getItems().size());
     }
+
+    @Test
+    void addItem_WithSameProduct_ShouldIncreaseQuantity() {
+        // Given: A product already exists in the cart
+        cart.addItem(product, 1);
+
+        // When: The same product is added again
+        cart.addItem(product, 2);
+
+        // Then: There should be one cart item with quantity 3
+        assertEquals(1, cart.getItems().size());
+        assertEquals(3, cart.getItems().get(0).getQuantity());
+    }
+
+
+    @Test
+    void getSubtotal_WithMultipleProducts_ShouldReturnCorrectTotal() {
+        // Given: Two products with prices and quantities
+        product.setPrice(5.00);
+
+        Product secondProduct = new Product();
+        secondProduct.setProductID(2);
+        secondProduct.setAvailable(true);
+        secondProduct.setPrice(3.00);
+
+        cart.addItem(product, 2);       // $5 × 2 = $10
+        cart.addItem(secondProduct, 3); // $3 × 3 = $9
+
+        // When: The subtotal is calculated
+        double subtotal = cart.getSubtotal();
+
+        // Then: The subtotal should be $19
+        assertEquals(19.00, subtotal, 0.001);
+    }
 }
