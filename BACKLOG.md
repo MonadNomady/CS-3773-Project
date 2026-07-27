@@ -4,7 +4,7 @@ This document tracks the functional requirements, system tasks, and features cat
 
 ## User Roles Reference
 * **Madison:** Server Administrator, Frontend Developer, Lead Architect
-* **Georgie:** Systems Architect, Backend Logic Developer
+* **Georgie:** Quality Assurance (QA) Engineer, Systems Architect, Backend Logic Developer
 * **Ire:** Quality Assurance (QA) Engineer, Backend Logic Developer
 * **Leigh:** Quality Assurance (QA) Engineer, Backend Logic Developer
 
@@ -36,17 +36,12 @@ This document tracks the functional requirements, system tasks, and features cat
 * [x] Claim and execute **Order History** logic in `OrderHistory.java` (Georgie)
   * *Tasks: Multi-parameter lists retrievals, date-based comparisons, cost-based ascending/descending sorting methods.*
 
+### Frontend Core
+* [x] Draft initial client portal UI layouts and wireframes (Madison)
+* [x] Establish global layout templates, components, and stylesheets (Madison)
 ---
 
 ## In Progress
-
-### Frontend Core
-* [ ] Draft initial client portal UI layouts and wireframes (Madison)
-* [ ] Establish global layout templates, components, and stylesheets (Madison)
-
----
-
-## Future Backlog Items
 
 ### Integration & Testing
 * [ ] Conduct end-to-end integration tests tracking user sessions from cart additions to order creation
@@ -54,3 +49,10 @@ This document tracks the functional requirements, system tasks, and features cat
 ### Presentation Preparation
 * [ ] Draft project slideshow framework mapped across team roles
 * [ ] Structure 12-minute technical run-through and record full operational demo
+
+---
+
+## Future Backlog Items
+
+### N/A
+
