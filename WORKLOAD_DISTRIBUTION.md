@@ -4,7 +4,7 @@ This document logs individual contributions and tracks the agreed workload distr
 
 ## Team Roles
 * **Madison:** Server Administrator, Frontend Developer, Lead Architect
-* **Georgie:** Systems Architect, Backend Logic Developer
+* **Georgie:** Quality Assurance (QA) Engineer, Systems Architect, Backend Logic Developer
 * **Ire:** Quality Assurance (QA) Engineer, Backend Logic Developer
 * **Leigh:** Quality Assurance (QA) Engineer, Backend Logic Developer
 
@@ -31,7 +31,7 @@ This document logs individual contributions and tracks the agreed workload distr
 | Backend Core: Shopping Cart | Ire         | Implement addItem(), deleteItem(), and clearCart() in ShoppingCart.java  |
 | Backend Core: Orders | Georgie     | Implement calculateTax(), applyDiscount(), placeOrder(), and displaySummary in Order.java |
 | Backend Core: Order History | Georgie     | Implement getOrders(), sortByDate(), and sortByPrice() in orderHistory.java |
-| QA: Test cases | Leigh, Ire     | Create test runs and ensure QA |
+| QA: Test cases | Leigh, Georgie     | Create test runs and ensure QA |
 
 ---
 
