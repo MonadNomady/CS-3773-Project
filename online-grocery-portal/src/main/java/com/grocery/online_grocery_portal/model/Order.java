@@ -42,7 +42,7 @@ public class Order {
     public void applyDiscount(String code) {
         discountCode = code;
 
-        switch (code) {
+        switch (code.toUpperCase()) {
             case "SAVE10":
                 totalAmount *= 0.90;
                 break;
