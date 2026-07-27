@@ -119,7 +119,7 @@ public class GroceryApiController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of("error", e.getMessage()));
         }
     }
-// ==========================================
+    // ==========================================
     // 3. CUSTOMER ADDRESS ENDPOINTS
     // ==========================================
 

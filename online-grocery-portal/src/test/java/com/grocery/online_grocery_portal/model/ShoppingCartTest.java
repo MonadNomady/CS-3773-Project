@@ -13,16 +13,18 @@ public class ShoppingCartTest {
     public void setUp() {
         cart = new ShoppingCart();
         product = new Product();
+
+        product.setProductID(1);
+        product.setAvailable(true);
     }
 
     @Test
     void addItem() {
         //given: new product
-        product.setProductID(1);
-        product.setAvailable(true);
+        int quantity = 1;
 
         //when: add item to cart
-        cart.addItem(product, 1);
+        cart.addItem(product, quantity);
 
         //then
         assertEquals(product, cart.getItems().get(0).getProduct());
@@ -101,8 +103,15 @@ public class ShoppingCartTest {
 
     @Test
     void addItem_WithSameProduct_ShouldIncreaseQuantity() {
-        // Given: A product already exists in the cart
+        // Given: An available product
+        assertTrue(product.isAvailable());
+
+        // When: The product is added with quantity 1
         cart.addItem(product, 1);
+
+        // Then: One item with quantity 1 should exist
+        assertEquals(1, cart.getItems().size());
+        assertEquals(1, cart.getItems().get(0).getQuantity());
 
         // When: The same product is added again
         cart.addItem(product, 2);
