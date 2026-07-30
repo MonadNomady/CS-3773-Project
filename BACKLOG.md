@@ -39,16 +39,19 @@ This document tracks the functional requirements, system tasks, and features cat
 ### Frontend Core
 * [x] Draft initial client portal UI layouts and wireframes (Madison)
 * [x] Establish global layout templates, components, and stylesheets (Madison)
+
+### Integration & Testing
+* [x] Conduct end-to-end integration tests tracking user sessions from cart additions to order creation
+
+### Presentation Preparation
+* [x] Draft project slideshow framework mapped across team roles
+* [x] Structure 12-minute technical run-through and record full operational demo
+      
 ---
 
 ## In Progress
 
-### Integration & Testing
-* [ ] Conduct end-to-end integration tests tracking user sessions from cart additions to order creation
-
-### Presentation Preparation
-* [ ] Draft project slideshow framework mapped across team roles
-* [ ] Structure 12-minute technical run-through and record full operational demo
+### N/A
 
 ---
 
